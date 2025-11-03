@@ -4,5 +4,21 @@
 			"path": "."
 		}
 	],
-	"settings": {}
+	"settings": {
+		"mcp": {
+			"servers": {
+				"my-local-file-mcp-server": {
+					"type": "stdio",
+					"command": "uv",
+					"args": [
+						"--directory",
+						"C:\\Users\\Simu\\python_projects\\local-file-mcp-server",
+						"run",
+						"main.py"
+					]
+				}
+			},
+			"inputs": []
+		}
+	}
 }
