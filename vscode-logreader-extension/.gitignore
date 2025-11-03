@@ -1,0 +1,4 @@
+# Contains all your dependencies
+node_modules
+
+out

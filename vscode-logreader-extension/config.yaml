@@ -1,0 +1,7 @@
+log_paths:
+  - logs
+  - .
+  - C:\Logs
+  - C:\Windows\System32\LogFiles
+  - /var/log
+max_file_size: 200000
