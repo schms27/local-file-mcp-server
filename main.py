@@ -7,21 +7,18 @@ from mcp.server.fastmcp import FastMCP
 mcp = FastMCP("logreader")
 
 @mcp.tool()
-async def get_logfiles(filename_search_string: str) -> str:
+async def get_logfiles(filename_search_string: str = "") -> str:
     """Get logfiles from the local system.
 
     Args:
-        state: the filename search string to look for in logfiles
+        filename_search_string: the filename search string to look for in logfiles (optional)
     """
     # Assumptions made:
     # - There are a few pre-configured paths to search for log files. If none exist
     #   we will search the current working directory recursively.
     # - Returned value should be a JSON-serializable string describing found files
     #   and their contents (this is mcp-friendly).
-
-    # Early return for empty search
-    if not filename_search_string:
-        return json.dumps({"files": []})
+    # - If no search string is provided, all log files will be returned
 
     # Pre-configured search paths (common locations for logs on Windows/Linux
     # plus a ./logs folder and the current working directory).
@@ -47,7 +44,7 @@ async def get_logfiles(filename_search_string: str) -> str:
         if os.path.isfile(base):
             # If a file path was given directly, check it
             fname = os.path.basename(base)
-            if filename_search_string in fname:
+            if not filename_search_string or filename_search_string in fname:
                 try:
                     with open(base, "r", encoding="utf-8", errors="replace") as fh:
                         data = fh.read(MAX_BYTES)
@@ -59,7 +56,8 @@ async def get_logfiles(filename_search_string: str) -> str:
 
         for dirpath, _dirs, files in os.walk(base):
             for fn in files:
-                if filename_search_string in fn:
+                    # Include file if no search string or if search string matches filename
+                if not filename_search_string or filename_search_string in fn:
                     full = os.path.join(dirpath, fn)
                     try:
                         # Try text read with utf-8, replace errors

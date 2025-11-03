@@ -25,3 +25,10 @@ uv run main.py
 4. Enter Server ID, i.e. 'my-local-file-mcp-server'
 5. The mcp server should show under 'MCP Servers - Installed' area:
 ![image](./docs/vscode_mcp_server.png)
+
+
+### Example 1: Query local logfiles
+
+Open ChatWindow with the tool 'get_logfiles' enabled as context and ask something along the lines: 'What happened between the communication of service a and service b according to the logs?'
+
+The model should be able to pick up the test-logfiles in the ./logs subfolder and answer the question in this context.
