@@ -1,0 +1,10 @@
+# Configuration for local-file-mcp-server
+log_paths:
+  - logs  # Relative to current working directory
+  - .     # Current working directory
+  - C:\Logs
+  - C:\Windows\System32\LogFiles
+  - /var/log
+
+# Maximum file size to read (in bytes)
+max_file_size: 200000
